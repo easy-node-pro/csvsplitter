@@ -18,4 +18,4 @@ Run the python application with:
 
 `python3 app.py`
 
-![Our application](csvsplitter.png)
+![Our application](https://github.com/easy-node-pro/csvsplitter/blob/main/csvsplitter.png?raw=true)
