@@ -6,7 +6,7 @@ import os
 class CSVProcessorApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("CSV Processor")
+        self.root.title("EasyNodePro.com CSV Processor")
         self.root.geometry("550x350")
         
         # File path variables

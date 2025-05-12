@@ -17,3 +17,5 @@ Edit the mapping.csv file if you have any addresses you'd like to swap during th
 Run the python application with:
 
 `python3 app.py`
+
+![Our application](csvsplitter.png)
