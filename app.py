@@ -1,7 +1,11 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox
 import csv
 import os
+from datetime import datetime
+from tkinter import filedialog, messagebox
+
+# Get current year-month format
+current_ym = datetime.now().strftime("%Y-%m")
 
 class CSVProcessorApp:
     def __init__(self, root):
@@ -16,13 +20,13 @@ class CSVProcessorApp:
         # Create UI elements
         tk.Label(root, text="Select CSV File:", font=('Arial', 12)).pack(pady=5)
         tk.Entry(root, textvariable=self.file_path, width=50).pack(padx=5)
-        tk.Button(root, text="Browse", command=self.select_file, width=10).pack(pady=5)
+        tk.Button(root, text="Select CSV", command=self.select_file, width=10).pack(pady=5)
         
         tk.Label(root, text="Find/Replace Mapping File:", font=('Arial', 12)).pack(pady=5)
         tk.Entry(root, textvariable=self.mapping_path, width=50).pack(padx=5)
-        tk.Button(root, text="Browse Mapping", command=self.select_mapping_file, width=15).pack(pady=5)
+        tk.Button(root, text="Select Mapping", command=self.select_mapping_file, width=15).pack(pady=5)
         
-        tk.Button(root, text="Go", command=self.process_csv, 
+        tk.Button(root, text="Run", command=self.process_csv, 
                 width=15, height=2, bg="lightblue").pack(pady=20)
         
         # Status label
@@ -33,12 +37,12 @@ class CSVProcessorApp:
         self.auto_detect_mapping()
 
     def auto_detect_mapping(self):
-        """Check for mapping.csv in the same directory as the script"""
+        """Check for mapping.csv in the same directory as app.py"""
         script_dir = os.path.dirname(os.path.abspath(__file__))
         mapping_path = os.path.join(script_dir, 'mapping.csv')
         if os.path.exists(mapping_path):
             self.mapping_path.set(mapping_path)
-            self.status_label.config(text="Auto-detected mapping.csv in local folder")
+            self.status_label.config(text="Auto-detected mapping.csv in same folder as app.py")
 
     def select_file(self):
         file_path = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
@@ -98,7 +102,7 @@ class CSVProcessorApp:
 
                 # Create output directory
                 base_name = os.path.splitext(os.path.basename(input_path))[0]
-                output_dir = os.path.join(os.path.dirname(input_path), f"{base_name}_split")
+                output_dir = os.path.join(os.path.dirname(input_path), f"{current_ym}/{base_name}_split")
                 os.makedirs(output_dir, exist_ok=True)
 
                 # Write chunks to files
